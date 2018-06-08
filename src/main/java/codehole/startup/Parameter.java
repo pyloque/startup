@@ -75,7 +75,7 @@ public class Parameter {
 		typeConverters.put("char", (s) -> s.charAt(0));
 		typeConverters.put("str", (s) -> s);
 		typeConverters.put("null", (s) -> null);
-		
+
 		typeConverters.put("Byte", (s) -> Byte.valueOf(s));
 		typeConverters.put("Short", (s) -> Short.valueOf(s));
 		typeConverters.put("Int", (s) -> Integer.valueOf(s));
@@ -123,19 +123,19 @@ public class Parameter {
 			return toArray(s, Character.class, (v) -> v.charAt(0));
 		});
 
-		classTypes.put(Byte.class, "byte");
-		classTypes.put(Short.class, "short");
-		classTypes.put(Integer.class, "int");
-		classTypes.put(Long.class, "long");
-		classTypes.put(Boolean.class, "bool");
-		classTypes.put(Character.class, "char");
-		classTypes.put(String.class, "str");
 		classTypes.put(byte.class, "byte");
 		classTypes.put(short.class, "short");
 		classTypes.put(int.class, "int");
 		classTypes.put(long.class, "long");
 		classTypes.put(boolean.class, "bool");
 		classTypes.put(char.class, "char");
+		classTypes.put(String.class, "str");
+		classTypes.put(Byte.class, "Byte");
+		classTypes.put(Short.class, "Short");
+		classTypes.put(Integer.class, "Int");
+		classTypes.put(Long.class, "Long");
+		classTypes.put(Boolean.class, "Bool");
+		classTypes.put(Character.class, "Char");
 		classTypes.put(byte[].class, "byte[]");
 		classTypes.put(short[].class, "short[]");
 		classTypes.put(int[].class, "int[]");
