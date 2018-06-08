@@ -51,22 +51,23 @@ public class Meta {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		Class<?> current = target;
+		String pattern = this.pattern;
 		if (pattern.startsWith("@")) {
 			pattern = pattern.substring(1);
 		} else if (pattern.startsWith("$")) {
 			pattern = pattern.substring(1);
 		}
-		String pattern = this.pattern.replace("*", "\\w*");
+		pattern = pattern.replace("*", "\\w*");
 		LOOP: while ((current != Object.class || target == Object.class) && len > 0) {
-			sb.append("-------------------Class ");
+			sb.append("Class: ");
 			sb.append(current.getCanonicalName());
-			sb.append("--------------------------\n");
+			sb.append("\n");
 			if (!isMethodOnly()) {
 				for (Field f : current.getDeclaredFields()) {
 					if (!isAllField() && !f.getName().matches(pattern)) {
 						continue;
 					}
-					sb.append("field: ");
+					sb.append("\tfield: ");
 					if (Modifier.isStatic(f.getModifiers())) {
 						sb.append("static ");
 					}
@@ -89,7 +90,7 @@ public class Meta {
 					if (!isAllMethod() && !m.getName().matches(pattern)) {
 						continue;
 					}
-					sb.append("method: ");
+					sb.append("\tmethod: ");
 					if (Modifier.isStatic(m.getModifiers())) {
 						sb.append("static ");
 					}
