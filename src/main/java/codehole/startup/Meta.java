@@ -59,7 +59,7 @@ public class Meta {
 		}
 		pattern = pattern.replace("*", "\\w*");
 		LOOP: while ((current != Object.class || target == Object.class) && len > 0) {
-			sb.append("Class: ");
+			sb.append("class: ");
 			sb.append(current.getCanonicalName());
 			sb.append("\n");
 			if (!isMethodOnly()) {

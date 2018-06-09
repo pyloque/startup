@@ -51,49 +51,49 @@ public class StartupConstructorTest {
 	public void fire() {
 		Sure sure = new Sure();
 		sure.reset();
-		Startup.fire(A.class, "+ - $a", (o) -> {
+		Startup.fire(A.class, "+ $a", (o) -> {
 			Assert.assertEquals(1, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(A.class, "+ 1 - $a", (o) -> {
+		Startup.fire(A.class, "+ 1 $a", (o) -> {
 			Assert.assertEquals(2, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(A.class, "+ int:1024 int:2048 - $a", (o) -> {
+		Startup.fire(A.class, "+ int:1024 int:2048 $a", (o) -> {
 			Assert.assertEquals(3, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(A.class, "+ int[]:1024 int[]:2048 - $a", (o) -> {
+		Startup.fire(A.class, "+ int[]:1024 int[]:2048 $a", (o) -> {
 			Assert.assertEquals(4, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(A.class, "+ Int[]:1024 int[]:2048 - $a", (o) -> {
+		Startup.fire(A.class, "+ Int[]:1024 int[]:2048 $a", (o) -> {
 			Assert.assertEquals(5, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(A.class, "+ Int[]:1024 Int[]:2048 - $a", (o) -> {
+		Startup.fire(A.class, "+ Int[]:1024 Int[]:2048 $a", (o) -> {
 			Assert.assertEquals(6, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(A.class, "+ int[]:1024 Int[]:2048 - $a", (o) -> {
+		Startup.fire(A.class, "+ int[]:1024 Int[]:2048 $a", (o) -> {
 			Assert.assertEquals(7, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(A.class, "+ int:1024 Int:2048 - $a", (o) -> {
+		Startup.fire(A.class, "+ int:1024 Int:2048 $a", (o) -> {
 			Assert.assertEquals(8, o);
 			sure.settle();
 		});

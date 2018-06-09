@@ -13,10 +13,6 @@ public class ClassInspector implements Inspector<Class<?>> {
 	@Override
 	public void inspect(ArgumentStack args) {
 		if (args.isEmpty()) {
-			if (Reflector.containsEmptyConstructor(target)) {
-				console.log(Reflector.newEmpty(target));
-				return;
-			}
 			console.log(target);
 			return;
 		}

@@ -129,34 +129,25 @@ public class StartupClassTest {
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(B.class, "+ -", (o) -> {
-			Assert.assertSame(o.getClass(), B.class);
-			B b = (B) o;
-			Assert.assertEquals(b.getB(), 0);
-			Assert.assertEquals(b.getA(), 0);
-			sure.settle();
-		});
-		Assert.assertTrue(sure.ok());
-		sure.reset();
-		Startup.fire(B.class, "+ - @setB 4 - @getB", (o) -> {
+		Startup.fire(B.class, "+ @setB 4 @getB", (o) -> {
 			Assert.assertEquals(o, 4);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(B.class, "+ - @setB int:4 - @getB", (o) -> {
+		Startup.fire(B.class, "+ @setB int:4 @getB", (o) -> {
 			Assert.assertEquals(o, 4);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(B.class, "+ - @setA 3 - @getA", (o) -> {
+		Startup.fire(B.class, "+ @setA 3 @getA", (o) -> {
 			Assert.assertEquals(o, 3);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(B.class, "+ - @setA int:3 - @getA", (o) -> {
+		Startup.fire(B.class, "+ @setA int:3 @getA", (o) -> {
 			Assert.assertEquals(o, 3);
 			sure.settle();
 		});
@@ -174,25 +165,25 @@ public class StartupClassTest {
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(B.class, "@setA int:3 - $a", (o) -> {
+		Startup.fire(B.class, "@setA int:3 $a", (o) -> {
 			Assert.assertEquals(o, 3);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(B.class, "@setB int:4 - $b", (o) -> {
+		Startup.fire(B.class, "@setB int:4 $b", (o) -> {
 			Assert.assertEquals(o, 4);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(B.class, "@setA int:3 - @getA", (o) -> {
+		Startup.fire(B.class, "@setA int:3 @getA", (o) -> {
 			Assert.assertEquals(o, 3);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(B.class, "@setB int:4 - @getB", (o) -> {
+		Startup.fire(B.class, "@setB int:4 @getB", (o) -> {
 			Assert.assertEquals(o, 4);
 			sure.settle();
 		});

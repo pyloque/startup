@@ -132,25 +132,25 @@ public class StartupObjectTest {
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(new B(), "@setA int:3 - $a", (o) -> {
+		Startup.fire(new B(), "@setA int:3 $a", (o) -> {
 			Assert.assertEquals(o, 3);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(new B(), "@setB int:4 - $b", (o) -> {
+		Startup.fire(new B(), "@setB int:4 $b", (o) -> {
 			Assert.assertEquals(o, 4);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(new B(), "@setA int:3 - @getA", (o) -> {
+		Startup.fire(new B(), "@setA int:3 @getA", (o) -> {
 			Assert.assertEquals(o, 3);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(new B(), "@setB int:4 - @getB", (o) -> {
+		Startup.fire(new B(), "@setB int:4 @getB", (o) -> {
 			Assert.assertEquals(o, 4);
 			sure.settle();
 		});

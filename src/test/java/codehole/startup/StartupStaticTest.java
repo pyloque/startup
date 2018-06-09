@@ -29,31 +29,31 @@ public class StartupStaticTest {
 	public void fire() {
 		Sure sure = new Sure();
 		sure.reset();
-		Startup.fire(B.class, "@@setB 5 - $$b", (o) -> {
+		Startup.fire(B.class, "@@setB 5 $$b", (o) -> {
 			Assert.assertEquals(5, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(B.class, "@@setA 3 - $$a", (o) -> {
+		Startup.fire(B.class, "@@setA 3 $$a", (o) -> {
 			Assert.assertEquals(3, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(A.class, "@@setA 2 - $$a", (o) -> {
+		Startup.fire(A.class, "@@setA 2 $$a", (o) -> {
 			Assert.assertEquals(2, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(new B(), "@@setB 1 - $$b", (o) -> {
+		Startup.fire(new B(), "@@setB 1 $$b", (o) -> {
 			Assert.assertEquals(1, o);
 			sure.settle();
 		});
 		Assert.assertTrue(sure.ok());
 		sure.reset();
-		Startup.fire(new B(), "@@setA 4 - $$a", (o) -> {
+		Startup.fire(new B(), "@@setA 4 $$a", (o) -> {
 			Assert.assertEquals(4, o);
 			sure.settle();
 		});

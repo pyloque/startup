@@ -39,7 +39,7 @@ public class ConstructorNode implements INode {
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			throw new StartupException(
-					String.format("new instance from constructor error class=%s", target.getCanonicalName()));
+					String.format("new instance from constructor error class=%s", target.getCanonicalName()), e);
 		}
 	}
 

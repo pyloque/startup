@@ -23,7 +23,7 @@ public class MethodNode implements INode {
 	@Override
 	public Object call(Object target) {
 		if (meta) {
-			return call(target.getClass());
+			return call(target.getClass(), target);
 		}
 		Method method = Reflector.selectInstanceMethod(target.getClass(), name, params);
 		if (method == null) {
@@ -37,7 +37,13 @@ public class MethodNode implements INode {
 			values[i++] = param.value();
 		}
 		try {
-			return method.invoke(target, values);
+			Object result = method.invoke(target, values);
+			if (method.getReturnType() == void.class) {
+				// 如果函数返回值为void，那么就返回对象自身
+				// 为了解决静态方法无法返回class.this的问题
+				return target;
+			}
+			return result;
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new StartupException(
 					String.format("method invoke error name=%s class=%s", name, target.getClass().getCanonicalName()),
@@ -47,6 +53,10 @@ public class MethodNode implements INode {
 
 	@Override
 	public Object call(Class<?> target) {
+		return call(target, target);
+	}
+
+	private Object call(Class<?> target, Object voidRet) {
 		if (!meta) {
 			if (!Reflector.containsEmptyConstructor(target)) {
 				throw new StartupException("empty constructor not found for class " + target.getCanonicalName());
@@ -66,7 +76,13 @@ public class MethodNode implements INode {
 			values[i++] = param.value();
 		}
 		try {
-			return method.invoke(null, values);
+			Object result = method.invoke(null, values);
+			if (method.getReturnType() == void.class) {
+				// 如果函数返回值为void，那么就返回对象自身
+				// 为了解决静态方法无法返回class.this的问题
+				return voidRet;
+			}
+			return result;
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new StartupException(
 					String.format("method invokr error name=%s class=%s", name, target.getClass().getCanonicalName()));

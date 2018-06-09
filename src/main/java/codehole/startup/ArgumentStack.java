@@ -34,7 +34,12 @@ public class ArgumentStack {
 				}
 				List<Parameter> params = new ArrayList<>();
 				for (i++; i < args.length + 1; i++) {
-					if (i >= args.length || args[i].equals("-")) {
+					if (i >= args.length) {
+						break;
+					}
+					if (args[i].startsWith("@") || args[i].startsWith("$") || args[i].equals("!")
+							|| args[i].equals("+")) {
+						i--;
 						break;
 					}
 					params.add(parseParameter(args[i]));
@@ -68,14 +73,19 @@ public class ArgumentStack {
 			} else if (arg.equals("+")) {
 				List<Parameter> params = new ArrayList<>();
 				for (i++; i < args.length + 1; i++) {
-					if (i >= args.length || args[i].equals("-")) {
+					if (i >= args.length) {
+						break;
+					}
+					if (args[i].startsWith("@") || args[i].startsWith("$") || args[i].equals("!")
+							|| args[i].equals("+")) {
+						i--;
 						break;
 					}
 					params.add(parseParameter(args[i]));
 				}
 				stack.nodes.add(new ConstructorNode(params));
 			} else {
-				throw new StartupException("illegal argument=" + arg);
+				throw new StartupException("illegal argument " + arg);
 			}
 		}
 		return stack;

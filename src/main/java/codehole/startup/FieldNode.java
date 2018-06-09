@@ -21,6 +21,7 @@ public class FieldNode implements INode {
 		if (meta) {
 			return call(target.getClass());
 		}
+		
 		Field field = Reflector.getInstanceField(target.getClass(), name);
 		if (field == null) {
 			throw new StartupException(

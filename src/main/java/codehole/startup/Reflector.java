@@ -20,7 +20,9 @@ public class Reflector {
 
 	public static Object newEmpty(Class<?> target) {
 		try {
-			return target.getDeclaredConstructor().newInstance();
+			Constructor<?> cons = target.getDeclaredConstructor();
+			cons.setAccessible(true);
+			return cons.newInstance();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
 			throw new StartupException("new empty instance error", e);
@@ -79,6 +81,7 @@ public class Reflector {
 				}
 			}
 			if (match) {
+				cons.setAccessible(true);
 				return cons;
 			}
 		}
