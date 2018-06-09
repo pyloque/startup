@@ -264,3 +264,18 @@ Counter(value=10)
 > + @incr 5 @decr 5 @incr 5 @decr 5 $value
 10
 ```
+
+仅支持有限的参数类型
+--
+Java的类型非常繁多，暂时无法支持所有的类型，目前仅对原生类型以及原生类型的包装类以及原生类型的数组做了支持，容器类型暂时还没有想到合适的方法来支持。
+
+所有支持的参数类型如下，引用部分为对应的参数前缀名称
+* byte short int long boolean char String
+> byte short int long bool char str
+* Byte Short Integer Long Boolean Character
+> Byte Short Int Long Bool Char
+* byte[] short[] int[] long[] boolean[] char[] String[]
+> byte[] short[] int[] long[] bool[] char[] str[]
+* Byte[] Short[] Integer[] Long[] Boolean[] Character[]
+> Byte[] Short[] Int[] Long[] Bool[] Char[]
+
