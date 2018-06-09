@@ -4,7 +4,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.List;
 
 public class Reflector {
@@ -29,36 +28,18 @@ public class Reflector {
 		}
 	}
 
-	static interface IAccepted<T> {
-		boolean accept(T t);
-	}
-
-	public static Field getField(Class<?> target, String name, IAccepted<Field> acceptor) {
+	public static Field getField(Class<?> target, String name) {
 		Field field = null;
 		do {
 			try {
 				field = target.getDeclaredField(name);
-				if (acceptor.accept(field)) {
-					field.setAccessible(true);
-					return field;
-				}
+				field.setAccessible(true);
+				return field;
 			} catch (NoSuchFieldException e1) {
 			}
 			target = target.getSuperclass();
 		} while (target != null);
 		return null;
-	}
-
-	public static Field getInstanceField(Class<?> target, String name) {
-		return getField(target, name, (f) -> {
-			return !Modifier.isStatic(f.getModifiers());
-		});
-	}
-
-	public static Field getStaticField(Class<?> target, String name) {
-		return getField(target, name, (f) -> {
-			return Modifier.isStatic(f.getModifiers());
-		});
 	}
 
 	public static Constructor<?> selectConstructor(Class<?> target, List<Parameter> params) {
@@ -96,17 +77,13 @@ public class Reflector {
 		}
 	}
 
-	public static Method selectMethod(Class<?> target, String name, List<Parameter> params,
-			IAccepted<Method> acceptor) {
+	public static Method selectMethod(Class<?> target, String name, List<Parameter> params) {
 		do {
 			for (Method method : target.getDeclaredMethods()) {
 				if (!method.getName().equals(name)) {
 					continue;
 				}
 				if (method.getParameterCount() != params.size()) {
-					continue;
-				}
-				if (!acceptor.accept(method)) {
 					continue;
 				}
 				Class<?>[] sourceTypes = method.getParameterTypes();
@@ -131,18 +108,6 @@ public class Reflector {
 			target = target.getSuperclass();
 		} while (target != null);
 		return null;
-	}
-
-	public static Method selectStaticMethod(Class<?> target, String name, List<Parameter> params) {
-		return selectMethod(target, name, params, (m) -> {
-			return Modifier.isStatic(m.getModifiers());
-		});
-	}
-
-	public static Method selectInstanceMethod(Class<?> target, String name, List<Parameter> params) {
-		return selectMethod(target, name, params, (m) -> {
-			return !Modifier.isStatic(m.getModifiers());
-		});
 	}
 
 	public static void fillParameterType(Method method, List<Parameter> params) {

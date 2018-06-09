@@ -20,15 +20,8 @@ public class ArgumentStack {
 		ArgumentStack stack = new ArgumentStack();
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
-			if (arg.startsWith("@@") || arg.startsWith("@")) {
-				boolean meta = arg.startsWith("@@");
-				String method = null;
-				if (meta) {
-					method = arg.substring(2);
-				} else {
-					method = arg.substring(1);
-				}
-				method = method.trim();
+			if (arg.startsWith("@")) {
+				String method = arg.substring(1).trim();
 				if (method.isEmpty()) {
 					throw new StartupException("empty method name disallowed");
 				}
@@ -44,13 +37,10 @@ public class ArgumentStack {
 					}
 					params.add(parseParameter(args[i]));
 				}
-				stack.nodes.add(new MethodNode(params, method, meta));
-			} else if (arg.startsWith("$$")) {
-				String field = arg.substring(2);
-				stack.nodes.add(new FieldNode(field, true));
+				stack.nodes.add(new MethodNode(params, method));
 			} else if (arg.startsWith("$")) {
-				String field = arg.substring(1);
-				stack.nodes.add(new FieldNode(field, false));
+				String field = arg.substring(1).trim();
+				stack.nodes.add(new FieldNode(field));
 			} else if (arg.equals("!")) {
 				MetaNode meta = new MetaNode();
 				stack.nodes.add(meta);
