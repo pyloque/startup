@@ -1,9 +1,7 @@
 package codehole.startup;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Parameter {
@@ -15,8 +13,10 @@ public class Parameter {
 		this.value = value;
 	}
 
-	public void type(Class<?> clazz) {
-		this.type = classTypes.get(clazz);
+	public void typeIfEmpty(Class<?> clazz) {
+		if (type == null) {
+			this.type = classTypes.get(clazz);
+		}
 	}
 
 	public Object value() {
@@ -30,7 +30,7 @@ public class Parameter {
 		try {
 			return converter.parse(value);
 		} catch (NumberFormatException e) {
-			throw new StartupException(String.format("parse error value=%s with type=", value, type));
+			throw new StartupException(String.format("parse error value=%s with type=%s", value, type), e);
 		}
 	}
 
@@ -50,14 +50,6 @@ public class Parameter {
 		Object result = Array.newInstance(clazz, parts.length);
 		for (int i = 0; i < parts.length; i++) {
 			Array.set(result, i, converter.parse(parts[i]));
-		}
-		return result;
-	}
-
-	static <T> List<T> toList(String s, Class<T> clazz, IConverter<T> converter) {
-		List<T> result = new ArrayList<T>();
-		for (String part : s.trim().split(",")) {
-			result.add(converter.parse(part));
 		}
 		return result;
 	}

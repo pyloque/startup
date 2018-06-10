@@ -73,7 +73,7 @@ public class Reflector {
 		Class<?>[] sourceTypes = cons.getParameterTypes();
 		for (int i = 0; i < params.size(); i++) {
 			Class<?> sourceType = sourceTypes[i];
-			params.get(i).type(sourceType);
+			params.get(i).typeIfEmpty(sourceType);
 		}
 	}
 
@@ -114,7 +114,7 @@ public class Reflector {
 		Class<?>[] sourceTypes = method.getParameterTypes();
 		for (int i = 0; i < params.size(); i++) {
 			Class<?> sourceType = sourceTypes[i];
-			params.get(i).type(sourceType);
+			params.get(i).typeIfEmpty(sourceType);
 		}
 	}
 

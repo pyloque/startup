@@ -92,6 +92,7 @@ public class ArgumentStack {
 				throw new StartupException("unsupported parameter type=" + type);
 			}
 		}
+		
 		return new Parameter(null, s.trim());
 	}
 
